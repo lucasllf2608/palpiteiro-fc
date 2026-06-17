@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\JogoController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PalpiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('jogo-teste', [JogoController::class,'teste']);
 Route::get('jogos', [JogoController::class,'index']);
 Route::post('login', [AuthController::class, 'login']);
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('palpites', [PalpiteController::class, 'store']);
+});
