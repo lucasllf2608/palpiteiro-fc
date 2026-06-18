@@ -27,54 +27,30 @@ class JogoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
        $jogos = Jogo::orderBy('data_jogo', 'asc')->get();
        return response()->json($jogos, 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+
+    public function encerrarPartida(Request $request, $id){
+
+        $dadosValidados = $request->validate([
+                'gols_casa' => 'required|integer|min:0',
+                'gols_visitante' => 'required|integer|min:0',
+                ]);
+
+        try {
+            $jogo = $this->jogoService->finalizarPartida($id, $dadosValidados);
+            return response()->json(['mensagem' => 'Jogo encerrado e pontos dos usuários calculados com sucesso!','jogo' => $jogo], 200);
+        } catch (Exception $e) {
+            return response()->json(['erro' => $e->getMessage()], 400);
+        }
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Jogo  $jogo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Jogo $jogo)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Jogo  $jogo
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Jogo $jogo)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Jogo  $jogo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Jogo $jogo)
-    {
-        //
-    }
+
+
 }
