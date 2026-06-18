@@ -16,4 +16,11 @@ class Palpite extends Model
         'gols_visitante',
         'pontos_ganhos'
     ];
+
+
+    public function jogo()
+    {
+        return $this->belongsTo(Jogo::class);
+    }
+
 }

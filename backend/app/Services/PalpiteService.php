@@ -16,15 +16,12 @@ class PalpiteService {
         }
 
         return Palpite::updateOrCreate(
-            [
-                'user_id' => $userId,
-                'jogo_id' => $jogo->id
-            ],
-            [
-                'gols_casa' => $dados['gols_casa'],
-                'gols_visitante' => $dados['gols_visitante']
-            ]
-        );
-        
+            ['user_id' => $userId,'jogo_id' => $jogo->id],
+            ['gols_casa' => $dados['gols_casa'],'gols_visitante' => $dados['gols_visitante']]);
+    }
+
+
+    public function listarPorUsuario(int $idUsuario){
+        return Palpite::with('jogo')->where('user_id', $idUsuario)->orderBy('created_at', 'desc')->get();
     }
 }

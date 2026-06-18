@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Jogo;
+use App\Services\JogoService;
 use Illuminate\Http\Request;
 
 class JogoController extends Controller
 {
+
+    protected $jogoService;
+
+    public function __construct(JogoService $jogoService){
+        $this->jogoService = $jogoService;
+    }
 
     public function teste(){
         return response()->json([

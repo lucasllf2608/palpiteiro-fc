@@ -30,4 +30,5 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('palpites', [PalpiteController::class, 'store']);
+    Route::get('palpites', [PalpiteController::class, 'index']);
 });
