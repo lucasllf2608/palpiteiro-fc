@@ -5,6 +5,10 @@ namespace App\Services;
 use App\Models\Palpite;
 use App\Models\Jogo;
 use Exception;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 class PalpiteService {
 
@@ -23,5 +27,15 @@ class PalpiteService {
 
     public function listarPorUsuario(int $idUsuario){
         return Palpite::with('jogo')->where('user_id', $idUsuario)->orderBy('created_at', 'desc')->get();
+    }
+
+    public function obterRankingGeral(){
+      return \App\Models\User::select('users.id', 'users.name')
+            ->leftJoin('palpites', 'users.id', '=', 'palpites.user_id')
+            ->groupBy('users.id', 'users.name')
+            ->selectRaw('COALESCE(SUM(palpites.pontos_ganhos), 0) as total_pontos')
+            ->orderBy('total_pontos', 'desc')
+            ->get();
+
     }
 }

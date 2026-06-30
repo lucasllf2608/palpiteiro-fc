@@ -43,4 +43,14 @@ class PalpiteController extends Controller {
         }
 
     }
+
+
+    public function ranking(){
+        try {
+            $classificacao = $this->palpiteService->obterRankingGeral();    
+            return response()->json($classificacao,200);
+        } catch (Exception $e) {
+          return response()->json(['erro' => 'Não foi possível carregar o ranking.'], 500);
+        }
+    }
 }
