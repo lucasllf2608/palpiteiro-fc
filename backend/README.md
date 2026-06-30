@@ -47,3 +47,11 @@ O sistema conta com um algoritmo cirúrgico de pontuação fatiada dentro da `Jo
 * **Pontuação Máxima Possível por jogo:** 12 pontos
 
 ---
+
+## ⚙️ Como Executar o Projeto Localmente
+
+1. Clone o repositório
+2. Instalar as dependências do Composer ( composer install )
+3. Ajustar a configuração do arquivo .env com as credenciais do banco.
+4. Rodar as migrations para criar as tabelas ( php artisan migrate )
+5. Iniciar o server ( php artisan serve )
