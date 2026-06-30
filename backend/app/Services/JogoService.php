@@ -5,8 +5,20 @@ namespace App\Services;
 use App\Models\Jogo;
 use App\Models\Palpite;
 use Exception;
+use Carbon\Carbon;
 
 class JogoService {
+
+
+    public function listarJogos(){
+        return $jogos = Jogo::orderBy('data_jogo', 'asc')->get();
+    }
+
+    public function listarJogosDeHoje(){
+        $hoje = Carbon::today();
+        return Jogo::whereDate('data_jogo', $hoje)->orderBy('data_jogo', 'asc')->get();
+    }
+
 
     public function finalizarPartida(int $jogoId, array $dadosReais){
         $jogo = Jogo::findOrFail($jogoId);

@@ -28,8 +28,23 @@ class JogoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-       $jogos = Jogo::orderBy('data_jogo', 'asc')->get();
-       return response()->json($jogos, 200);
+       
+        try {
+           $jogos = $this->jogoService->listarJogos();
+           return response()->json($jogos, 200);
+        } catch (Exception $e) {
+            return response()->json(['erro' => 'Não foi possível carregar a listagem de jogos.'], 500);
+        }
+    }
+
+
+    public function listarJogosDeHoje(){
+          try {
+           $jogos = $this->jogoService->listarJogosDeHoje();
+           return response()->json($jogos, 200);
+        } catch (Exception $e) {
+            return response()->json(['erro' => 'Não foi possível carregar a listagem de jogos.'], 500);
+        }
     }
 
 
